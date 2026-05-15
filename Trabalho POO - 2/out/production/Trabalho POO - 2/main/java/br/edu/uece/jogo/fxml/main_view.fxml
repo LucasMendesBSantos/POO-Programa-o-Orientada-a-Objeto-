@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="main.java.br.edu.uece.controller.GameController"
+            style="-fx-background-color: #1a3a4a;">
+
+    <!-- ═══════════════════════════ CABEÇALHO ═══════════════════════════ -->
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="14"
+              style="-fx-background-color: #0d2b3a; -fx-padding: 10 18;">
+
+            <Label text="JOGO DE TABULEIRO"
+                   style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+
+            <Separator orientation="VERTICAL" prefHeight="28"/>
+
+            <Label text="Vez de:"
+                   style="-fx-font-size: 12px; -fx-text-fill: #aaaaaa;"/>
+            <Label fx:id="jogadorAtualLabel" text="-"
+                   style="-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <CheckBox fx:id="modoDebugCheckBox" text="Modo Debug"
+                      style="-fx-text-fill: #FFD700; -fx-font-size: 12px;"/>
+
+            <HBox fx:id="debugBox" spacing="6" alignment="CENTER">
+                <Label text="Casa destino:"
+                       style="-fx-text-fill: white; -fx-font-size: 12px;"/>
+                <TextField fx:id="casaDebugField" promptText="0-40" prefWidth="65"
+                           style="-fx-font-size: 13px;"/>
+            </HBox>
+        </HBox>
+    </top>
+
+    <!-- ══════════════════════════ CONTEÚDO ══════════════════════════ -->
+    <center>
+        <HBox spacing="12" style="-fx-padding: 12;">
+
+            <!-- ──── COLUNA ESQUERDA: tabuleiro ──── -->
+            <VBox spacing="4" alignment="TOP_CENTER" HBox.hgrow="ALWAYS">
+
+                <Label text="T  A  B  U  L  E  I  R  O"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold;
+                              -fx-text-fill: #FFD700; -fx-letter-spacing: 2;"/>
+
+                <!-- legenda de cores -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="■ Início"   style="-fx-font-size: 10px; -fx-text-fill: #4CAF50; -fx-font-weight: bold;"/>
+                    <Label text="■ Chegada"  style="-fx-font-size: 10px; -fx-text-fill: #FFD700; -fx-font-weight: bold;"/>
+                    <Label text="■ Perde vez" style="-fx-font-size: 10px; -fx-text-fill: #FF5252; -fx-font-weight: bold;"/>
+                    <Label text="■ Sorte"    style="-fx-font-size: 10px; -fx-text-fill: #2196F3; -fx-font-weight: bold;"/>
+                    <Label text="■ Surpresa" style="-fx-font-size: 10px; -fx-text-fill: #9C27B0; -fx-font-weight: bold;"/>
+                    <Label text="■ Escolhe"  style="-fx-font-size: 10px; -fx-text-fill: #FF9800; -fx-font-weight: bold;"/>
+                    <Label text="■ Mágica"   style="-fx-font-size: 10px; -fx-text-fill: #E91E63; -fx-font-weight: bold;"/>
+                </HBox>
+
+                <GridPane fx:id="tabuleiroGrid" hgap="3" vgap="3"
+                          style="-fx-padding: 6; -fx-background-color: #2a4a5a;
+                                 -fx-background-radius: 8;"/>
+            </VBox>
+
+            <!-- ──── COLUNA DIREITA: controles ──── -->
+            <VBox spacing="10" prefWidth="320" minWidth="310">
+
+                <!-- DADOS -->
+                <VBox spacing="8"
+                      style="-fx-background-color: rgba(255,255,255,0.09);
+                             -fx-background-radius: 10; -fx-padding: 12;">
+                    <Label text="DADOS"
+                           style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+                    <HBox spacing="8" alignment="CENTER">
+                        <VBox alignment="CENTER" spacing="3">
+                            <Label text="Dado 1"
+                                   style="-fx-text-fill: #bbbbbb; -fx-font-size: 10px;"/>
+                            <Label fx:id="dado1Label" text="-"
+                                   style="-fx-font-size: 34px; -fx-font-weight: bold;
+                                          -fx-text-fill: white; -fx-background-color: #1a5f7a;
+                                          -fx-background-radius: 8; -fx-padding: 4 16;
+                                          -fx-min-width: 60; -fx-alignment: CENTER;"/>
+                        </VBox>
+                        <Label text="+"
+                               style="-fx-font-size: 24px; -fx-text-fill: #FFD700; -fx-font-weight: bold;"/>
+                        <VBox alignment="CENTER" spacing="3">
+                            <Label text="Dado 2"
+                                   style="-fx-text-fill: #bbbbbb; -fx-font-size: 10px;"/>
+                            <Label fx:id="dado2Label" text="-"
+                                   style="-fx-font-size: 34px; -fx-font-weight: bold;
+                                          -fx-text-fill: white; -fx-background-color: #1a5f7a;
+                                          -fx-background-radius: 8; -fx-padding: 4 16;
+                                          -fx-min-width: 60; -fx-alignment: CENTER;"/>
+                        </VBox>
+                        <Label text="="
+                               style="-fx-font-size: 24px; -fx-text-fill: #FFD700; -fx-font-weight: bold;"/>
+                        <VBox alignment="CENTER" spacing="3">
+                            <Label text="Soma"
+                                   style="-fx-text-fill: #bbbbbb; -fx-font-size: 10px;"/>
+                            <Label fx:id="somaLabel" text="-"
+                                   style="-fx-font-size: 34px; -fx-font-weight: bold;
+                                          -fx-text-fill: #FFD700; -fx-background-color: #0d3b52;
+                                          -fx-background-radius: 8; -fx-padding: 4 16;
+                                          -fx-min-width: 60; -fx-alignment: CENTER;"/>
+                        </VBox>
+                    </HBox>
+                </VBox>
+
+                <!-- BOTÕES -->
+                <Button fx:id="jogarDadosBtn" text="🎲  JOGAR DADOS"
+                        prefWidth="320" prefHeight="50"
+                        style="-fx-background-color: linear-gradient(to bottom, #43A047, #2E7D32);
+                               -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;
+                               -fx-background-radius: 10; -fx-cursor: hand;"/>
+
+                <Button fx:id="proximoJogadorBtn" text="➡  PRÓXIMO JOGADOR"
+                        prefWidth="320" prefHeight="44"
+                        style="-fx-background-color: linear-gradient(to bottom, #1E88E5, #1565C0);
+                               -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold;
+                               -fx-background-radius: 10; -fx-cursor: hand;"/>
+
+                <!-- PLACAR -->
+                <VBox spacing="5"
+                      style="-fx-background-color: rgba(255,255,255,0.09);
+                             -fx-background-radius: 10; -fx-padding: 10;">
+                    <Label text="PLACAR"
+                           style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+                    <ListView fx:id="placarListView" prefHeight="150" maxHeight="150"
+                              style="-fx-background-color: rgba(0,0,0,0.35);
+                                     -fx-border-color: #1a5f7a; -fx-border-width: 1;
+                                     -fx-border-radius: 5; -fx-font-size: 12px; -fx-text-fill: white;"/>
+                </VBox>
+
+                <!-- LOG -->
+                <VBox spacing="5" VBox.vgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.09);
+                             -fx-background-radius: 10; -fx-padding: 10;">
+                    <Label text="LOG DO JOGO"
+                           style="-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: #FFD700;"/>
+                    <TextArea fx:id="logArea" VBox.vgrow="ALWAYS"
+                              editable="false" wrapText="true" prefHeight="280"
+                              style="-fx-background-color: rgba(0,0,0,0.45);
+                                     -fx-text-fill: #000000; -fx-font-size: 11px;
+                                     -fx-font-family: 'Courier New';
+                                     -fx-border-color: #1a5f7a; -fx-border-width: 1;
+                                     -fx-border-radius: 5;"/>
+                </VBox>
+
+            </VBox>
+        </HBox>
+    </center>
+
+</BorderPane>
